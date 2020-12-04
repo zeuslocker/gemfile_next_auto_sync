@@ -31,7 +31,6 @@ module GemfileNextAutoSync
       self.class.hook('after-install-all') do
         binding.pry
         current_definition = Bundler.definition
-        next_definition = Bundler::Definition.build(GEMFILE_NEXT, GEMFILE_NEXT_LOCK, unlock)
 
         next if !GEMFILE_NEXT_LOCK.exist? ||
           nothing_changed?(current_definition)
@@ -46,10 +45,12 @@ module GemfileNextAutoSync
 
     def update!(current_definition)
       binding.pry
-      lock = which_lock
       Bundler.ui.confirm("Updating the #{lock}")
 
       unlock = current_definition.instance_variable_get(:@unlock)
+      lock = which_lock
+      next_definition = Bundler::Definition.build(GEMFILE_NEXT, GEMFILE_NEXT_LOCK, unlock)
+
       definition = Bundler::Definition.build(GEMFILE, lock, unlock)
       definition.resolve_remotely!
       definition.lock(lock)
