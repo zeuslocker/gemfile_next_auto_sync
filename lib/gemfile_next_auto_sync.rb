@@ -7,7 +7,7 @@ module GemfileNextAutoSync
   GEMFILE_LOCK = Pathname("#{GEMFILE}.lock")
   GEMFILE_NEXT_LOCK = Pathname("#{GEMFILE}_next.lock")
 
-  autoload :Synchronizer, 'gemfile_next_auto_sunc/synchronizer'
+  autoload :Synchronizer, 'gemfile_next_auto_sync/synchronizer'
 end
 
 GemfileNextAutoSync::Synchronizer.new.setup
