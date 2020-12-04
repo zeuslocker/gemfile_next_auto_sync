@@ -23,10 +23,12 @@ module GemfileNextAutoSync
 
     def opt_in
       self.class.hook('before-install-all') do
+        binding.pry
         @previous_lock = Bundler.default_lockfile.read
       end
 
       self.class.hook('after-install-all') do
+        binding.pry
         current_definition = Bundler.definition
 
         next if !GEMFILE_NEXT_LOCK.exist? ||
@@ -41,6 +43,7 @@ module GemfileNextAutoSync
     end
 
     def update!(current_definition)
+      binding.pry
       Bundler.ui.confirm("Updating the #{lock}")
 
       unlock = current_definition.instance_variable_get(:@unlock)
