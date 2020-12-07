@@ -54,8 +54,9 @@ module GemfileNextAutoSync
 
       next_definition = Bundler::Definition.build(GEMFILE_NEXT, GEMFILE_NEXT_LOCK, unlock)
       definition = Bundler::Definition.build(GEMFILE, lock, unlock)
-      rails_dependency = next_definition.dependencies.find{ |d| d.name === 'rails' }
-      definition.dependencies[definition.dependencies.index{|d| d.name === 'rails'}] = rails_dependency
+      binding.pry
+      rails_dependency = next_definition.dependencies.find { |d| d.name === 'rails' }
+      definition.dependencies[definition.dependencies.index { |d| d.name === 'rails' }] = rails_dependency
       definition.resolve_remotely!
       definition.lock(lock)
     end
