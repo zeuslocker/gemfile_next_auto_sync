@@ -49,14 +49,15 @@ module GemfileNextAutoSync
     end
 
     def update!(current_definition)
-      binding.pry
-      Bundler.ui.confirm("Updating the #{lock}")
-
       unlock = current_definition.instance_variable_get(:@unlock)
       lock = which_lock
-      next_definition = Bundler::Definition.build(GEMFILE_NEXT, GEMFILE_NEXT_LOCK, unlock)
 
+      Bundler.ui.confirm("Updating the #{lock}")
+
+      next_definition = Bundler::Definition.build(GEMFILE_NEXT, GEMFILE_NEXT_LOCK, unlock)
       definition = Bundler::Definition.build(GEMFILE, lock, unlock)
+      rails_dependency = next_definition.dependencies.find{ |d| d.name === 'rails' }
+      definition.dependencies[definition.dependencies.index{|d| d.name === 'rails'}] = rails_dependency
       definition.resolve_remotely!
       definition.lock(lock)
     end
