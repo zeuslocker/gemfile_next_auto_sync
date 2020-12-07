@@ -29,12 +29,10 @@ module GemfileNextAutoSync
 
     def opt_in
       self.class.hook('before-install-all') do
-        binding.pry
         @previous_lock = Bundler.default_lockfile.read
       end
 
       self.class.hook('after-install-all') do
-        binding.pry
         current_definition = Bundler.definition
 
         next if !GEMFILE_NEXT_LOCK.exist? ||
