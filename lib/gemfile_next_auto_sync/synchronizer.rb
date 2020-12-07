@@ -3,6 +3,11 @@ require 'pry'
 
 module GemfileNextAutoSync
   class Synchronizer < Bundler::Plugin::API
+    GEMFILE = ::Bundler.default_gemfile
+    GEMFILE_LOCK = Pathname("#{GEMFILE}.lock")
+    GEMFILE_NEXT_LOCK = Pathname("#{GEMFILE}.next.lock")
+    GEMFILE_NEXT =  Pathname("#{GEMFILE}.next")
+
     def setup
       check_bundler_version
       opt_in

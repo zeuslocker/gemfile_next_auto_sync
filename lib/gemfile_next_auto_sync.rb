@@ -3,11 +3,6 @@
 require_relative 'gemfile_next_auto_sync/version'
 
 module GemfileNextAutoSync
-  GEMFILE = ::Bundler.default_gemfile
-  GEMFILE_LOCK = Pathname("#{GEMFILE}.lock")
-  GEMFILE_NEXT_LOCK = Pathname("#{GEMFILE}.next.lock")
-  GEMFILE_NEXT =  Pathname("#{GEMFILE}.next")
-
   autoload :Synchronizer, 'gemfile_next_auto_sync/synchronizer'
 end
 
