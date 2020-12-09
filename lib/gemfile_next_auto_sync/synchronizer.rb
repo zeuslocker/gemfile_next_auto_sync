@@ -61,6 +61,7 @@ module GemfileNextAutoSync
       next_dependencies_names = next_dependencies.map{ |dep| dep.name }
       definition.dependencies.reject! { |d| next_dependencies_names.include?(d.name) }
       definition.dependencies.prepend(*next_dependencies)
+      binding.pry
       definition.resolve_remotely!
       definition.lock(lock)
     end
