@@ -53,7 +53,7 @@ module GemfileNextAutoSync
       Bundler.ui.confirm("Updating the #{lock}")
 
       next_definition = Bundler::Definition.build(GEMFILE_NEXT, GEMFILE_NEXT_LOCK, unlock)
-      # definition = Bundler::Definition.build(GEMFILE, lock, unlock)
+      definition = Bundler::Definition.build(GEMFILE, lock, unlock)
       # next_dependencies = File.read(GEMFILE_NEXT).scan(%r{(gem)(\s+)(?:'|")([^'"]*)(?:'|")(?:(?:,\s+)?(?:'|")?([^'"\n]*)?(?:'|"))?}).map do |x|
       #   Bundler::Dependency.new(x[2], x[3])
       # end
@@ -61,9 +61,8 @@ module GemfileNextAutoSync
       # next_dependencies_names = next_dependencies.map{ |dep| dep.name }
       # definition.dependencies.reject! { |d| next_dependencies_names.include?(d.name) }
       # definition.dependencies.prepend(*next_dependencies)
-      definition.dependencies.clear
+      definition.dependencies.reject!{ true }
       definition.dependencies.append(*next_definition.dependencies)
-      binding.pry
       definition.resolve_remotely!
       definition.lock(lock)
     end
