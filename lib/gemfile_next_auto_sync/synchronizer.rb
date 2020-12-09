@@ -63,6 +63,7 @@ module GemfileNextAutoSync
       # definition.dependencies.prepend(*next_dependencies)
       definition.dependencies.clear
       definition.dependencies.append(*next_definition.dependencies)
+      binding.pry
       definition.resolve_remotely!
       definition.lock(lock)
     end
