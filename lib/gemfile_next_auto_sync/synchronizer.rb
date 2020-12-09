@@ -55,9 +55,9 @@ module GemfileNextAutoSync
       next_definition = Bundler::Definition.build(GEMFILE_NEXT, GEMFILE_NEXT_LOCK, unlock)
       definition = Bundler::Definition.build(GEMFILE, lock, unlock)
       next_dependencies = File.read(GEMFILE_NEXT).scan(%r{(gem)(\s+)(?:'|")([^'"]*)(?:'|")(?:(?:,\s+)?(?:'|")?([^'"\n]*)?(?:'|"))?}).map do |x|
-        Gem::Dependency.new(x[2], Gem::Requirement.new([x[3]]), :runtime)
+        Bundler::Dependency.new(x[2], x[3])
       end
-      binding.pry
+
       next_dependencies_names = next_dependencies.map{ |dep| dep.name }
       definition.dependencies.reject! { |d| next_dependencies_names.include?(d.name) }
       definition.dependencies.prepend(*next_dependencies)
