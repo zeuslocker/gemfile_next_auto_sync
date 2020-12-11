@@ -34,12 +34,13 @@ module GemfileNextAutoSync
 
       self.class.hook('after-install-all') do
         current_definition = Bundler.definition
-        binding.pry
+        next_definition = Bundler::Definition.build(GEMFILE_NEXT, GEMFILE_NEXT_LOCK, nil)
+
         Bundler.ui.warn("\n GemfileNextAutoSync: GEMFILE_NEXT_LOCK does not exist, skiped!") unless GEMFILE_NEXT_LOCK.exist?
         Bundler.ui.warn("\n GemfileNextAutoSync: GEMFILE_LOCK does not exist, skiped!") unless GEMFILE_LOCK.exist?
 
         next if !GEMFILE_LOCK.exist? || !GEMFILE_NEXT_LOCK.exist? ||
-          nothing_changed?(current_definition)
+          (nothing_changed?(current_definition) && nothing_changed?(next_definition))
 
         update!(current_definition)
       end
@@ -53,12 +54,10 @@ module GemfileNextAutoSync
       ENV['BOOTBOOT_UPDATING_ALTERNATE_LOCKFILE'] = '1'
       unlock = current_definition.instance_variable_get(:@unlock)
       lock = which_lock
+
       Bundler.ui.confirm("Updating the #{lock}")
-      binding.pry
-      # next_definition = Bundler::Definition.build(GEMFILE_NEXT, GEMFILE_NEXT_LOCK, unlock)
+
       definition = Bundler::Definition.build(GEMFILE_NEXT, GEMFILE_NEXT, unlock)
-      # definition.dependencies.reject!{ true }
-      # definition.dependencies.append(*next_definition.dependencies)
       definition.resolve_remotely!
       definition.lock(lock)
     end
