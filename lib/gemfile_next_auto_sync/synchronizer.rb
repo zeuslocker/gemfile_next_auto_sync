@@ -55,10 +55,10 @@ module GemfileNextAutoSync
       lock = which_lock
       Bundler.ui.confirm("Updating the #{lock}")
       binding.pry
-      next_definition = Bundler::Definition.build(GEMFILE_NEXT, GEMFILE_NEXT_LOCK, unlock)
-      definition = Bundler::Definition.build(GEMFILE, lock, unlock)
-      definition.dependencies.reject!{ true }
-      definition.dependencies.append(*next_definition.dependencies)
+      # next_definition = Bundler::Definition.build(GEMFILE_NEXT, GEMFILE_NEXT_LOCK, unlock)
+      definition = Bundler::Definition.build(GEMFILE_NEXT, GEMFILE_NEXT, unlock)
+      # definition.dependencies.reject!{ true }
+      # definition.dependencies.append(*next_definition.dependencies)
       definition.resolve_remotely!
       definition.lock(lock)
     end
