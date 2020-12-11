@@ -34,7 +34,7 @@ module GemfileNextAutoSync
 
       self.class.hook('after-install-all') do
         current_definition = Bundler.definition
-
+        binding.pry
         Bundler.ui.warn("\n GemfileNextAutoSync: GEMFILE_NEXT_LOCK does not exist, skiped!") unless GEMFILE_NEXT_LOCK.exist?
         Bundler.ui.warn("\n GemfileNextAutoSync: GEMFILE_LOCK does not exist, skiped!") unless GEMFILE_LOCK.exist?
 
@@ -54,7 +54,7 @@ module GemfileNextAutoSync
       unlock = current_definition.instance_variable_get(:@unlock)
       lock = which_lock
       Bundler.ui.confirm("Updating the #{lock}")
-
+      binding.pry
       next_definition = Bundler::Definition.build(GEMFILE_NEXT, GEMFILE_NEXT_LOCK, unlock)
       definition = Bundler::Definition.build(GEMFILE, lock, unlock)
       definition.dependencies.reject!{ true }
