@@ -2,14 +2,12 @@ GEM
   remote: https://rubygems.org/
   specs:
     Generator_pdf (0.0.2)
-    catalogue (0.0.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   Generator_pdf
-  catalogue (= 0.0.1)
 
 BUNDLED WITH
    2.1.4
