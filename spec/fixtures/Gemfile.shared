@@ -1,0 +1,17 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
+
+group :deployment do
+  gem 'package_cloud'
+  gem 'rake'
+end
+
+group :test do
+  gem 'rubocop'
+end
+
+
+plugin 'gemfile_next_auto_sync', git: 'git@github.com:zeuslocker/gemfile_next_auto_sync.git'

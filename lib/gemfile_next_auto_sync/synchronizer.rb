@@ -35,7 +35,7 @@ module GemfileNextAutoSync
       self.class.hook('after-install-all') do
         current_definition = Bundler.definition
 
-        next if !GEMFILE_NEXT_LOCK.exist? ||
+        next if !GEMFILE_LOCK.exist? || !GEMFILE_NEXT_LOCK.exist? ||
           nothing_changed?(current_definition)
 
         update!(current_definition)
