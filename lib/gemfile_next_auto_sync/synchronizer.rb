@@ -35,6 +35,9 @@ module GemfileNextAutoSync
       self.class.hook('after-install-all') do
         current_definition = Bundler.definition
 
+        Bundler.ui.warn("\n GemfileNextAutoSync: GEMFILE_NEXT_LOCK does not exist, skiped!") unless GEMFILE_NEXT_LOCK.exist?
+        Bundler.ui.warn("\n GemfileNextAutoSync: GEMFILE_LOCK does not exist, skiped!") unless GEMFILE_LOCK.exist?
+
         next if !GEMFILE_LOCK.exist? || !GEMFILE_NEXT_LOCK.exist? ||
           nothing_changed?(current_definition)
 

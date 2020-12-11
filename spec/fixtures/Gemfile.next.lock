@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    catalogue (0.0.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  catalogue
+
+BUNDLED WITH
+   2.1.4
