@@ -29,7 +29,7 @@ module GemfileNextAutoSync
 
     def opt_in
       self.class.hook('before-install-all') do
-        next if GEMFILE.end_with?('next')
+        next if GEMFILE.to_s.end_with?('next')
         Bundler.ui.warn("\n GemfileNextAutoSync: GEMFILE_NEXT_LOCK does not exist, skiped!") unless GEMFILE_NEXT_LOCK.exist?
         Bundler.ui.warn("\n GemfileNextAutoSync: GEMFILE_LOCK does not exist, skiped!") unless GEMFILE_LOCK.exist?
         next if !GEMFILE_LOCK.exist? || !GEMFILE_NEXT_LOCK.exist?
@@ -37,7 +37,7 @@ module GemfileNextAutoSync
       end
 
       self.class.hook('after-install-all') do
-        next if GEMFILE.end_with?('next')
+        next if GEMFILE.to_s.end_with?('next')
 
         current_definition = Bundler.definition
         next_definition = Bundler::Definition.build(GEMFILE_NEXT, GEMFILE_NEXT_LOCK, nil)
