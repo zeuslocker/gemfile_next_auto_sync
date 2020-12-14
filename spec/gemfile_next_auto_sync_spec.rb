@@ -17,12 +17,16 @@ RSpec.describe GemfileNextAutoSync do
   end
 
   it 'Removes shared gem from both gemfiles' do
-    original = File.read('spec/fixtures/Gemfile.shared')
+    original_shared = File.read('spec/fixtures/Gemfile.shared')
+    original_lock = File.read('spec/fixtures/Gemfile.lock')
+    original_next_lock = File.read('spec/fixtures/Gemfile.next.lock')
     File.write('spec/fixtures/Gemfile.shared', original.gsub("gem 'catalogue', '0.0.1'", ''), mode: 'w')
     subject
     expect(File.read('spec/fixtures/Gemfile.lock')).not_to include 'catalogue (0.0.1)'
     expect(File.read('spec/fixtures/Gemfile.next.lock')).not_to include 'catalogue (0.0.1)'
   ensure
-    File.write('spec/fixtures/Gemfile.shared', original, mode: 'w')
+    File.write('spec/fixtures/Gemfile.shared', original_shared, mode: 'w')
+    File.write('spec/fixtures/Gemfile.lock', original_lock, mode: 'w')
+    File.write('spec/fixtures/Gemfile.next.lock', original_next_lock, mode: 'w')
   end
 end

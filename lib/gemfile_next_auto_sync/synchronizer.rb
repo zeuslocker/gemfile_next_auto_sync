@@ -41,7 +41,7 @@ module GemfileNextAutoSync
 
         Bundler.ui.warn("\n GemfileNextAutoSync: GEMFILE_NEXT_LOCK does not exist, skiped!") unless GEMFILE_NEXT_LOCK.exist?
         Bundler.ui.warn("\n GemfileNextAutoSync: GEMFILE_LOCK does not exist, skiped!") unless GEMFILE_LOCK.exist?
-        binding.pry
+
         next if !GEMFILE_LOCK.exist? || !GEMFILE_NEXT_LOCK.exist? ||
           (nothing_changed?(current_definition) && nothing_changed?(next_definition))
 
@@ -57,7 +57,7 @@ module GemfileNextAutoSync
       ENV['BOOTBOOT_UPDATING_ALTERNATE_LOCKFILE'] = '1'
       lock = which_lock
       Bundler.ui.confirm("Updating the #{lock}")
-      binding.pry
+
       unlock = current_definition.instance_variable_get(:@unlock)
       definition = Bundler::Definition.build(GEMFILE_NEXT, lock, unlock)
       definition.resolve_remotely!
