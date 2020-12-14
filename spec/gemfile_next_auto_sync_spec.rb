@@ -2,7 +2,7 @@
 
 RSpec.describe GemfileNextAutoSync do
   subject do
-    Bundler.with_unbundled_env do
+    Bundler.with_original_env do
       `cd spec/fixtures && bundle install`
     end
   end
@@ -10,8 +10,9 @@ RSpec.describe GemfileNextAutoSync do
     expect(GemfileNextAutoSync::VERSION).not_to be nil
   end
 
-  it 'does something useful' do
+  it 'Both gemfiles include shared gems' do
     subject
-    expect(true).to eq(true)
+    expect(File.read('spec/fixtures/Gemfile.lock')).to include 'catalogue (0.0.1)'
+    expect(File.read('spec/fixtures/Gemfile.next.lock')).to include 'catalogue (0.0.1)'
   end
 end
