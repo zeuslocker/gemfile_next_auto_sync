@@ -1,4 +1,2 @@
-source 'https://rubygems.org'
-
 gem 'catalogue', '0.0.1'
 eval_gemfile 'Gemfile.shared'

@@ -2,7 +2,9 @@
 
 RSpec.describe GemfileNextAutoSync do
   subject do
-    system('cd ./fixures && bundle install')
+    Bundler.with_unbundled_env do
+      `cd spec/fixtures && bundle install`
+    end
   end
   it 'has a version number' do
     expect(GemfileNextAutoSync::VERSION).not_to be nil

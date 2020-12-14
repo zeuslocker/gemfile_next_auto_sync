@@ -53,7 +53,6 @@ module GemfileNextAutoSync
     def update!(current_definition)
       ENV['BOOTBOOT_UPDATING_ALTERNATE_LOCKFILE'] = '1'
       lock = which_lock
-      binding.pry
       Bundler.ui.confirm("Updating the #{lock}")
 
       definition = Bundler::Definition.build(GEMFILE_NEXT, GEMFILE_NEXT, nil)
