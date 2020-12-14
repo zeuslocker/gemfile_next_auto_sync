@@ -47,4 +47,26 @@ RSpec.describe GemfileNextAutoSync do
     expect(File.read('spec/fixtures/Gemfile.lock')).to include 'Generator_pdf (0.0.1)'
     expect(File.read('spec/fixtures/Gemfile.next.lock')).to include 'Generator_pdf (0.0.2)'
   end
+
+  it 'Works if Gemfile.lock does not exist' do
+    File.delete('spec/fixtures/Gemfile.lock')
+    expect { subject }.not_to raise_error
+  end
+
+  it 'Works if Gemfile.next.lock does not exist' do
+    File.delete('spec/fixtures/Gemfile.next.lock')
+    expect { subject }.not_to raise_error
+  end
+
+  context 'User install only for Gemfile.next (with BUNDLE_GEMFILE=Gemfile.next env)' do
+    subject do
+      Bundler.with_original_env do
+        `cd spec/fixtures && BUNDLE_GEMFILE=Gemfile.next bundle install`
+      end
+    end
+
+    it 'Works' do
+      expect { subject }.not_to raise_error
+    end
+  end
 end
