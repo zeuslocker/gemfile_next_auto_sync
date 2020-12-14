@@ -54,7 +54,7 @@ module GemfileNextAutoSync
     end
 
     def update!(current_definition)
-      Bundler.ui.confirm("Updating the #{lock}")
+      Bundler.ui.confirm("Updating the #{GEMFILE_NEXT_LOCK}")
 
       unlock = current_definition.instance_variable_get(:@unlock)
       definition = Bundler::Definition.build(GEMFILE_NEXT, GEMFILE_NEXT_LOCK, unlock)
