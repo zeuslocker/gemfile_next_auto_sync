@@ -41,7 +41,7 @@ module GemfileNextAutoSync
 
         Bundler.ui.warn("\n GemfileNextAutoSync: GEMFILE_NEXT_LOCK does not exist, skiped!") unless GEMFILE_NEXT_LOCK.exist?
         Bundler.ui.warn("\n GemfileNextAutoSync: GEMFILE_LOCK does not exist, skiped!") unless GEMFILE_LOCK.exist?
-
+        binding.pry
         next if !GEMFILE_LOCK.exist? || !GEMFILE_NEXT_LOCK.exist? ||
           (nothing_changed?(current_definition) && nothing_changed?(next_definition))
 
