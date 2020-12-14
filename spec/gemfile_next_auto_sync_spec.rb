@@ -20,7 +20,7 @@ RSpec.describe GemfileNextAutoSync do
     original_shared = File.read('spec/fixtures/Gemfile.shared')
     original_lock = File.read('spec/fixtures/Gemfile.lock')
     original_next_lock = File.read('spec/fixtures/Gemfile.next.lock')
-    File.write('spec/fixtures/Gemfile.shared', original.gsub("gem 'catalogue', '0.0.1'", ''), mode: 'w')
+    File.write('spec/fixtures/Gemfile.shared', original_shared.gsub("gem 'catalogue', '0.0.1'", ''), mode: 'w')
     subject
     expect(File.read('spec/fixtures/Gemfile.lock')).not_to include 'catalogue (0.0.1)'
     expect(File.read('spec/fixtures/Gemfile.next.lock')).not_to include 'catalogue (0.0.1)'
